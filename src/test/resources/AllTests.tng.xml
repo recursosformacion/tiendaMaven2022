@@ -1,0 +1,14 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+
+<suite name="AllTests">
+	<test name="All">
+		<packages>
+			<package name="es.ref.tienda"></package>
+			<package name="es.rf.tienda.controllers"></package>
+			<package name="es.rf.tienda.dominio"></package>
+			<package name="es.rf.tienda.objetos.daos"></package>
+			<package name="es.rf.tienda.util"></package>
+			<package name="es.rf.tienda.vistas"></package>
+		</packages>
+	</test>
+</suite>
