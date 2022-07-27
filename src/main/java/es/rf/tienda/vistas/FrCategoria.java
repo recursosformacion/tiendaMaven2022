@@ -5,10 +5,7 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-
 import es.rf.tienda.controllers.CategoriaController;
-import es.rf.tienda.controllers.Controlador;
 import es.rf.tienda.dominio.Categoria;
 import es.rf.tienda.util.RutinasSwing;
 
@@ -20,9 +17,6 @@ import javax.swing.JOptionPane;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
-import java.awt.Label;
-
-
 import javax.swing.JTextField;
 import javax.swing.JTextArea;
 import java.awt.event.ActionListener;
@@ -32,6 +26,10 @@ import java.awt.Font;
 
 public class FrCategoria extends JFrame implements PantallaFrame<Categoria> {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private static FrCategoria instancia;
 	private static CategoriaController controller;
 	
@@ -245,7 +243,7 @@ public class FrCategoria extends JFrame implements PantallaFrame<Categoria> {
 	}
 
 	@Override
-	public void setDatos(List lista) {
+	public void setDatos(List<Categoria> lista) {
 		// TODO Auto-generated method stub
 
 	}
