@@ -24,11 +24,14 @@ import javax.swing.SwingConstants;
 import javax.swing.JTable;
 
 import es.rf.tienda.controllers.CategoriaController;
-import es.rf.tienda.controllers.Controlador;
 import es.rf.tienda.dominio.Categoria;
 
 public class LCCategoria extends JFrame implements ActionListener, MouseListener, PantallaFrame<Categoria> {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private static LCCategoria instancia;
 	private JTable listado;
 	private String codigo = "";
@@ -232,32 +235,22 @@ public class LCCategoria extends JFrame implements ActionListener, MouseListener
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
 	public void mouseEntered(MouseEvent e) {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
 	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
 	public void setRecord(Categoria t, String option) {
-		// TODO Auto-generated method stub
-
 	}
 
 
