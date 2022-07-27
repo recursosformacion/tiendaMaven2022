@@ -65,7 +65,7 @@ public abstract class TControllerSw<S extends Modelo, T extends BObjetosDAO<S>> 
 		try {
 			switch (option) {
 			case ADD:			
-				formulario.setRecord(gestor,ADD);
+				formulario.setRecord(gestor,option);
 				formulario.setController(this);
 				break;
 			case VIEW:

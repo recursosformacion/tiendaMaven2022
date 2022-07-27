@@ -176,14 +176,7 @@ public class FrCategoria extends JFrame implements PantallaFrame<Categoria> {
 		gridBagLayout.add(descripcionText, gbc_descripcionText);
 
 		JButton btnNewButton_1 = new JButton(boton);
-		GridBagConstraints gbc_btnNewButton_1 = new GridBagConstraints();
-		gbc_btnNewButton_1.insets = new Insets(0, 0, 10, 5);
-		gbc_btnNewButton_1.gridx = 4;
-		gbc_btnNewButton_1.gridy = 4;
-		gridBagLayout.add(btnNewButton_1, gbc_btnNewButton_1);
-
-		JButton btnNewButton = new JButton("Cancelar");
-		btnNewButton.addActionListener(new ActionListener() {
+		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					if (reg.isValid())
@@ -197,6 +190,19 @@ public class FrCategoria extends JFrame implements PantallaFrame<Categoria> {
 				} catch (Exception e1) {
 					e1.printStackTrace();
 				}
+			}
+		});
+		GridBagConstraints gbc_btnNewButton_1 = new GridBagConstraints();
+		gbc_btnNewButton_1.insets = new Insets(0, 0, 10, 5);
+		gbc_btnNewButton_1.gridx = 4;
+		gbc_btnNewButton_1.gridy = 4;
+		gridBagLayout.add(btnNewButton_1, gbc_btnNewButton_1);
+
+		JButton btnNewButton = new JButton("Cancelar");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				setVisible(false);
+				dispose();
 			}
 		});
 
