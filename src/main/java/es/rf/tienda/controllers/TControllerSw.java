@@ -66,11 +66,13 @@ public abstract class TControllerSw<S extends Modelo, T extends BObjetosDAO<S>> 
 			switch (option) {
 			case ADD:			
 				formulario.setRecord(gestor,ADD);
+				formulario.setController(this);
 				break;
 			case VIEW:
 			case UPDATE:
 			case DELETE:
-				formulario.setRecord(leer(obj),option);			
+				formulario.setRecord(leer(obj),option);	
+				formulario.setController(this);
 				break;
 			case LIST:
 				List<S> lista = leerTodos();
@@ -134,8 +136,9 @@ public abstract class TControllerSw<S extends Modelo, T extends BObjetosDAO<S>> 
 		return null;
 	}
 
-	public boolean grabar(S obj) throws DAOException {
-		return cDAO.insertarRegistro(obj);
+	public void grabar(S obj) throws DAOException {
+		if ( cDAO.insertarRegistro(obj))
+			setOption(new String[] {TControllerSw.LIST});
 	}
 
 	public boolean actualizar(S obj) throws DAOException {
