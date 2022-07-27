@@ -29,7 +29,7 @@ import es.rf.tienda.dominio.Categoria;
 public class LCCategoria extends JFrame implements ActionListener, MouseListener, PantallaFrame<Categoria> {
 
 	/**
-	 * 
+	 * Falta comentario
 	 */
 	private static final long serialVersionUID = 1L;
 	private static LCCategoria instancia;
