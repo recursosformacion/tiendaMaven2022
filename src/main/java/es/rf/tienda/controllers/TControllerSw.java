@@ -37,8 +37,8 @@ public abstract class TControllerSw<S extends Modelo, T extends BObjetosDAO<S>> 
 		this.listado = listado;
 		this.formulario = formulario;
 		this.gestor = objeto;
-		
-		formulario.setController(this);		//Le asigno al formulario, este controlador
+
+		formulario.setController(this); // Le asigno al formulario, este controlador
 	}
 
 	public List<S> listado() {
@@ -54,8 +54,8 @@ public abstract class TControllerSw<S extends Modelo, T extends BObjetosDAO<S>> 
 	}
 
 	public void setOption(String[] sentencia) {
-		String option=sentencia[0];
-		String clave="";
+		String option = sentencia[0];
+		String clave = "";
 		S obj = (S) gestor.clone();
 		if (sentencia.length >= 2) {
 			clave = sentencia[1];
@@ -64,14 +64,14 @@ public abstract class TControllerSw<S extends Modelo, T extends BObjetosDAO<S>> 
 		}
 		try {
 			switch (option) {
-			case ADD:			
-				formulario.setRecord(gestor,option);
+			case ADD:
+				formulario.setRecord(gestor, option);
 				formulario.setController(this);
 				break;
 			case VIEW:
 			case UPDATE:
 			case DELETE:
-				formulario.setRecord(leer(obj),option);	
+				formulario.setRecord(leer(obj), option);
 				formulario.setController(this);
 				break;
 			case LIST:
@@ -79,34 +79,35 @@ public abstract class TControllerSw<S extends Modelo, T extends BObjetosDAO<S>> 
 				listado.setController(this);
 				listado.setDatos(lista);
 				listado.montarPantalla().setVisible(true);
-				
+
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
-	}
-	
-	public void setAction(String accion,S obj) {
 		
+	}
+
+	public void setAction(String accion, S obj) {
+
 		try {
 			switch (accion) {
 			case ADD:
-				
+				grabar(obj);
+				break;
 			case VIEW:
 			case UPDATE:
 			case DELETE:
-				
+
 			case LIST:
-				
+
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
+		setOption(new String[] { TControllerSw.LIST });
 	}
 
-	public S leer(S obj)  {
+	public S leer(S obj) {
 		try {
 			return cDAO.leerRegistro(obj);
 		} catch (DAOException | DomainException e) {
@@ -116,11 +117,11 @@ public abstract class TControllerSw<S extends Modelo, T extends BObjetosDAO<S>> 
 		return null;
 	}
 
-	public List<S> leerTodos()  {
+	public List<S> leerTodos() {
 		try {
 			return cDAO.leerTodos();
 		} catch (DAOException | DomainException e) {
-			
+
 			e.printStackTrace();
 		}
 		return null;
@@ -130,15 +131,15 @@ public abstract class TControllerSw<S extends Modelo, T extends BObjetosDAO<S>> 
 		try {
 			return cDAO.leerSQL(sql);
 		} catch (DAOException | DomainException e) {
-			
+
 			e.printStackTrace();
 		}
 		return null;
 	}
 
 	public void grabar(S obj) throws DAOException {
-		if ( cDAO.insertarRegistro(obj))
-			setOption(new String[] {TControllerSw.LIST});
+		if (cDAO.insertarRegistro(obj))
+			setOption(new String[] { TControllerSw.LIST });
 	}
 
 	public boolean actualizar(S obj) throws DAOException {
