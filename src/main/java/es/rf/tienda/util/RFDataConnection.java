@@ -288,7 +288,7 @@ public class RFDataConnection {
 	}
 
 	public static int consigueClave(String tabla, String campo) throws DAOException {
-		String sql = "SELECT MAX(" + campo + ") FROM " + tabla;
+		String sql = "SELECT MAX(" + campo + ") as ix FROM " + tabla;
 		ResultSet rs = ejecutarQuery(sql);
 		try {
 			if /* (!rs.first()) */ (rs.next())
@@ -296,7 +296,7 @@ public class RFDataConnection {
 			else
 				return 1;
 			// rs.next();
-			return rs.getInt(0) + 1;
+			return rs.getInt("ix") + 1;
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw new DAOException("Error buscando PK :" + sql);
