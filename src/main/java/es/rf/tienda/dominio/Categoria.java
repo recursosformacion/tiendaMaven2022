@@ -12,7 +12,7 @@ import es.rf.tienda.util.Validator;
  * @version 13 de abr. de 2022
  *
  */
-public class Categoria extends Modelo{
+public class Categoria extends Modelo<Categoria> {
 
 	
 	
@@ -176,6 +176,14 @@ public class Categoria extends Modelo{
 	@Override
 	public String[] toArray() {
 		return new String[]{getId_categoria() + "",getCat_nombre(),getCat_descripcion()};
+	}
+
+	@Override
+	public Categoria clean() {
+		id_categoria=0;
+		cat_nombre=null;
+		cat_descripcion=null;
+		return this;
 	}
 
 }

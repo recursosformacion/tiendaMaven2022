@@ -24,6 +24,7 @@ import javax.swing.SwingConstants;
 import javax.swing.JTable;
 
 import es.rf.tienda.controllers.CategoriaController;
+import es.rf.tienda.controllers.TControllerSw;
 import es.rf.tienda.dominio.Categoria;
 
 public class LCCategoria extends JFrame implements ActionListener, MouseListener, PantallaFrame<Categoria> {
@@ -32,6 +33,7 @@ public class LCCategoria extends JFrame implements ActionListener, MouseListener
 	 * Falta comentario
 	 */
 	private static final long serialVersionUID = 1L;
+
 	private static LCCategoria instancia;
 	private JTable listado;
 	private String codigo = "";
@@ -45,7 +47,7 @@ public class LCCategoria extends JFrame implements ActionListener, MouseListener
 	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
-			
+
 			public void run() {
 				try {
 					controller = new CategoriaController();
@@ -61,20 +63,27 @@ public class LCCategoria extends JFrame implements ActionListener, MouseListener
 		});
 	}
 
-	private LCCategoria() {}
+	private LCCategoria() {
+		montarPantalla();
+	}
+
 	public static LCCategoria getInstance() {
-		if (instancia==null) instancia = new LCCategoria();
+		if (instancia == null)
+			instancia = new LCCategoria();
 		return instancia;
 	}
 
 	@Override
-	public void setController(Object obj) {
-		this.controller =  (CategoriaController) obj;
+	public void setController(TControllerSw obj) {
+		LCCategoria.controller = (CategoriaController) obj;
 
 	}
 
 	public void setDatos(List<Categoria> lista) {
 		listaCategoria = lista;
+		// *************montando listado
+		getContentPane().add(montaListado(cabecera), BorderLayout.CENTER);
+		setVisible(true);
 	}
 
 	/**
@@ -116,9 +125,6 @@ public class LCCategoria extends JFrame implements ActionListener, MouseListener
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 14));
 		getContentPane().add(lblNewLabel, BorderLayout.NORTH);
-
-		// *************montando listado
-		getContentPane().add(montaListado(cabecera), BorderLayout.CENTER);
 
 		return this;
 	}
@@ -252,7 +258,5 @@ public class LCCategoria extends JFrame implements ActionListener, MouseListener
 	@Override
 	public void setRecord(Categoria t, String option) {
 	}
-
-
 
 }

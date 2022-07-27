@@ -12,7 +12,7 @@ import es.rf.tienda.vistas.PantallaFrame;
  * Servlet implementation class ListCategoria
  */
 
-public abstract class TControllerSw<S extends Modelo, T extends BObjetosDAO<S>> implements Controlador<S> {
+public abstract class TControllerSw<S extends Modelo<S>, T extends BObjetosDAO<S>> implements Controlador<S> {
 
 	private T cDAO;
 	private S gestor;
@@ -56,6 +56,7 @@ public abstract class TControllerSw<S extends Modelo, T extends BObjetosDAO<S>> 
 	public void setOption(String[] sentencia) {
 		String option = sentencia[0];
 		String clave = "";
+		gestor.clean();
 		S obj = (S) gestor.clone();
 		if (sentencia.length >= 2) {
 			clave = sentencia[1];
@@ -78,7 +79,7 @@ public abstract class TControllerSw<S extends Modelo, T extends BObjetosDAO<S>> 
 				List<S> lista = leerTodos();
 				listado.setController(this);
 				listado.setDatos(lista);
-				listado.montarPantalla().setVisible(true);
+				
 
 			}
 		} catch (Exception e) {
@@ -94,11 +95,16 @@ public abstract class TControllerSw<S extends Modelo, T extends BObjetosDAO<S>> 
 			case ADD:
 				grabar(obj);
 				break;
-			case VIEW:
+			
 			case UPDATE:
+				actualizar(obj);
+				break;
 			case DELETE:
+				borrar(obj);
+				break;
 
 			case LIST:
+			case VIEW:
 
 			}
 		} catch (Exception e) {

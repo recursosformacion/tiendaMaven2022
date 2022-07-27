@@ -28,7 +28,6 @@ public abstract class BObjetosDAO<T extends  Modelo> {
 	
 
 	public T leerRegistro(T clase) throws DAOException, DomainException  {
-		T nueva;
 		String res = obtenWhere(clase);
 		String sql = SELECT + clase.getTabla() + " " + res;
 		
@@ -96,8 +95,10 @@ public abstract class BObjetosDAO<T extends  Modelo> {
 		clase.setId(0);
 		String update = obtenUpdate(clase);
 		clase.setId(tmp);
-		String sql = UPDATE + clase.getTabla() + update + where;
-		return RFDataConnection.ejecutar(sql)>1;
+		String sql = UPDATE + clase.getTabla() + " SET " + update + where;
+		boolean ok = RFDataConnection.ejecutar(sql)>1;
+		if (ok) RFDataConnection.commit();
+		return ok;
 	}
 
 	private String obtenUpdate(T clase) {
@@ -107,12 +108,13 @@ public abstract class BObjetosDAO<T extends  Modelo> {
 	public boolean insertarRegistro(T clase) throws DAOException {
 		clase.setId(RFDataConnection.consigueClave(clase.getTabla(), clase.getNombrePk()));
 		String salida = obtenInsert(clase);
-		String sql = INSERT + clase.getTabla() + "(" + salida + ")";
+		String sql = INSERT + clase.getTabla() + " values (" + salida + ")";
 		System.out.println(sql);
-		int ret = RFDataConnection.ejecutar(sql);
-		if (ret == 0)
-			throw new DAOException("Error en " + sql);
-		return true;
+		
+		boolean ok = RFDataConnection.ejecutar(sql)>1;
+		if (ok) RFDataConnection.commit();
+		return ok;
+		
 	}
 
 
@@ -122,7 +124,9 @@ public abstract class BObjetosDAO<T extends  Modelo> {
 	public boolean borrarRegistro(T clase) throws DAOException {
 		String where = obtenWhere(clase);
 		String sql = DELETE + clase.getTabla()  + where;
-		return RFDataConnection.ejecutar(sql)>0;
+		boolean ok = RFDataConnection.ejecutar(sql)>1;
+		if (ok) RFDataConnection.commit();
+		return ok;
 		
 	}
 

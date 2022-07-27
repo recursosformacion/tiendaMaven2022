@@ -1,6 +1,6 @@
 package es.rf.tienda.dominio;
 
-public abstract class Modelo implements Cloneable{
+public abstract class Modelo<S> implements Cloneable{
 	
 	private  String pk= "id_categoria";
 	private  String tabla = "categoria";
@@ -30,6 +30,7 @@ public abstract class Modelo implements Cloneable{
 	public abstract int getId();
 	public abstract void setId(int id);
 	public abstract String[] toArray();
+	public abstract S clean();
 	
 
 }

@@ -6,6 +6,7 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import es.rf.tienda.controllers.CategoriaController;
+import es.rf.tienda.controllers.TControllerSw;
 import es.rf.tienda.dominio.Categoria;
 import es.rf.tienda.exception.DomainException;
 import es.rf.tienda.util.RutinasSwing;
@@ -105,7 +106,8 @@ public class FrCategoria extends JFrame implements PantallaFrame<Categoria>, Act
 	}
 
 	/**
-	 * Create the frame.
+	 * Create the frame. 
+	 * Prodria se private
 	 */
 	public JFrame montarPantalla() {
 
@@ -165,7 +167,6 @@ public class FrCategoria extends JFrame implements PantallaFrame<Categoria>, Act
 					try {
 						reg.setCat_nombre(content);
 					} catch (DomainException e1) {
-						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
 				}
@@ -269,7 +270,7 @@ public class FrCategoria extends JFrame implements PantallaFrame<Categoria>, Act
 	}
 
 	@Override
-	public void setController(Object obj) {
+	public void setController(TControllerSw obj) {
 		FrCategoria.controller = (CategoriaController) obj;
 
 	}
