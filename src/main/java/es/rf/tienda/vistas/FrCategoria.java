@@ -24,7 +24,7 @@ import java.util.List;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
 
-public class FrCategoria extends JFrame implements PantallaFrame<Categoria> {
+public class FrCategoria extends JFrame implements PantallaFrame<Categoria>, ActionListener {
 
 	/**
 	 * 
@@ -32,8 +32,7 @@ public class FrCategoria extends JFrame implements PantallaFrame<Categoria> {
 	private static final long serialVersionUID = 1L;
 	private static FrCategoria instancia;
 	private static CategoriaController controller;
-	
-	
+
 	private JLabel jTitulo;
 
 	private JTextField idText;
@@ -45,7 +44,6 @@ public class FrCategoria extends JFrame implements PantallaFrame<Categoria> {
 	private String boton;
 	private String titulo;
 	private boolean readonly;
-	
 
 	private FrCategoria() {
 		montarPantalla();
@@ -176,6 +174,9 @@ public class FrCategoria extends JFrame implements PantallaFrame<Categoria> {
 		gridBagLayout.add(descripcionText, gbc_descripcionText);
 
 		JButton btnNewButton_1 = new JButton(boton);
+		btnNewButton_1.addActionListener(this);
+		btnNewButton_1.setActionCommand("actuar");
+
 		GridBagConstraints gbc_btnNewButton_1 = new GridBagConstraints();
 		gbc_btnNewButton_1.insets = new Insets(0, 0, 10, 5);
 		gbc_btnNewButton_1.gridx = 4;
@@ -183,22 +184,8 @@ public class FrCategoria extends JFrame implements PantallaFrame<Categoria> {
 		gridBagLayout.add(btnNewButton_1, gbc_btnNewButton_1);
 
 		JButton btnNewButton = new JButton("Cancelar");
-		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				try {
-					if (reg.isValid())
-						FrCategoria.controller.grabar(reg);
-					else {
-						JOptionPane.showMessageDialog(null,
-				                "Faltan datos obligatorios",
-				                "Errores en entrada",
-				                JOptionPane.ERROR_MESSAGE);
-					}
-				} catch (Exception e1) {
-					e1.printStackTrace();
-				}
-			}
-		});
+		btnNewButton.addActionListener(this);
+		btnNewButton.setActionCommand("cancelar");
 
 		GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
 		gbc_btnNewButton.insets = new Insets(0, 0, 10, 0);
@@ -254,4 +241,22 @@ public class FrCategoria extends JFrame implements PantallaFrame<Categoria> {
 
 	}
 
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		System.out.println("Entro:" + e.getActionCommand());
+		String comando = e.getActionCommand();
+		if (comando.equals("cancela")) {
+			setVisible(false);
+			dispose();
+		} else if (comando.equals("actuar")) {
+			if (reg.isValid()) {
+				FrCategoria.controller.setAction(this.opcion, reg);
+				setVisible(false);
+				dispose();
+			} else {
+				JOptionPane.showMessageDialog(null, "Faltan datos obligatorios", "Errores en entrada",
+						JOptionPane.ERROR_MESSAGE);
+			}
+		}
+	}
 }
