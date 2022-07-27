@@ -37,7 +37,8 @@ public class Categoria extends Modelo{
 	}
 
 	public boolean isValid() {
-		return !Validator.isVacio(cat_nombre) && id_categoria > 0;
+		System.out.println("cat_nombre:" + getCat_nombre() + "<");
+		return !Validator.isVacio(cat_nombre) ;
 	}
 	
 	public int getId() {

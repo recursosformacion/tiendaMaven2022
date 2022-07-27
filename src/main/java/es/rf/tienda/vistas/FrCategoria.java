@@ -7,6 +7,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import es.rf.tienda.controllers.CategoriaController;
 import es.rf.tienda.dominio.Categoria;
+import es.rf.tienda.exception.DomainException;
 import es.rf.tienda.util.RutinasSwing;
 
 import javax.swing.JButton;
@@ -20,6 +21,8 @@ import java.awt.Insets;
 import javax.swing.JTextField;
 import javax.swing.JTextArea;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.util.List;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
@@ -27,7 +30,7 @@ import java.awt.Font;
 public class FrCategoria extends JFrame implements PantallaFrame<Categoria>, ActionListener {
 
 	/**
-	 * 
+	 * vss
 	 */
 	private static final long serialVersionUID = 1L;
 	private static FrCategoria instancia;
@@ -38,6 +41,7 @@ public class FrCategoria extends JFrame implements PantallaFrame<Categoria>, Act
 	private JTextField idText;
 	private JTextField nombreText;
 	private JTextArea descripcionText;
+	JButton btnActuar;
 
 	private Categoria reg;
 	private String opcion;
@@ -151,6 +155,22 @@ public class FrCategoria extends JFrame implements PantallaFrame<Categoria>, Act
 		gbc_nombreText.gridy = 2;
 		gridBagLayout.add(nombreText, gbc_nombreText);
 		nombreText.setColumns(10);
+		nombreText.addFocusListener(new FocusListener() {
+			public void focusGained(FocusEvent e) {
+			};
+
+			public void focusLost(FocusEvent e) {
+				if (!e.isTemporary()) {
+					String content = nombreText.getText();
+					try {
+						reg.setCat_nombre(content);
+					} catch (DomainException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+				}
+			}	
+		});
 
 		JLabel lblNewLabel_2 = new JLabel("Descripcion");
 		lblNewLabel_2.setVerticalAlignment(SwingConstants.TOP);
@@ -164,6 +184,17 @@ public class FrCategoria extends JFrame implements PantallaFrame<Categoria>, Act
 		descripcionText = new JTextArea();
 		descripcionText.setColumns(50);
 		descripcionText.setRows(5);
+		descripcionText.addFocusListener(new FocusListener() {
+			public void focusGained(FocusEvent e) {
+			};
+
+			public void focusLost(FocusEvent e) {
+				if (!e.isTemporary()) {
+					String content = descripcionText.getText();
+					reg.setCat_descripcion(content);
+				}
+			}	
+		});
 		GridBagConstraints gbc_descripcionText = new GridBagConstraints();
 		gbc_descripcionText.anchor = GridBagConstraints.NORTH;
 		gbc_descripcionText.gridwidth = 5;
@@ -173,15 +204,15 @@ public class FrCategoria extends JFrame implements PantallaFrame<Categoria>, Act
 		gbc_descripcionText.gridy = 3;
 		gridBagLayout.add(descripcionText, gbc_descripcionText);
 
-		JButton btnNewButton_1 = new JButton(boton);
-		btnNewButton_1.addActionListener(this);
-		btnNewButton_1.setActionCommand("actuar");
+		btnActuar = new JButton(boton);
+		btnActuar.addActionListener(this);
+		btnActuar.setActionCommand("actuar");
 
-		GridBagConstraints gbc_btnNewButton_1 = new GridBagConstraints();
-		gbc_btnNewButton_1.insets = new Insets(0, 0, 10, 5);
-		gbc_btnNewButton_1.gridx = 4;
-		gbc_btnNewButton_1.gridy = 4;
-		gridBagLayout.add(btnNewButton_1, gbc_btnNewButton_1);
+		GridBagConstraints gbc_btnActuar = new GridBagConstraints();
+		gbc_btnActuar.insets = new Insets(0, 0, 10, 5);
+		gbc_btnActuar.gridx = 4;
+		gbc_btnActuar.gridy = 4;
+		gridBagLayout.add(btnActuar, gbc_btnActuar);
 
 		JButton btnNewButton = new JButton("Cancelar");
 		btnNewButton.addActionListener(this);
@@ -215,6 +246,8 @@ public class FrCategoria extends JFrame implements PantallaFrame<Categoria>, Act
 		setNombreText(reg.getCat_nombre());
 		setDescripcionText(reg.getCat_descripcion());
 		descripcionText.setEditable(!readonly);
+		btnActuar.setText(boton);
+
 		setVisible(true);
 	}
 
